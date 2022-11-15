@@ -1,0 +1,78 @@
+API REST PARA EL RECURSO DE ZAPATILLAS
+Una sencilla API REST para el manejo de CRUD con las ZAPATILLAS 
+  
+PRIMER PASO!
+// Importar la base de datos
+Importarla desde phpMyAdmin -> database/zapatillas.sql
+
+//Aclaración: En la base de datos, dentro de la tabla usuarios agregué una nueva columna llamada "usuario".
+
+Consumir la API REST utilizando Postman!
+El endpoint de la API es: http://localhost:50/shoes-rest/api/shoes  
+
+Detalles de las variables para un mejor uso de la api ! 
+
+-sortby -> Campo por el cual se va ordenar la colección. 
+-order -> Orden que va a tener la colección con el sortby elegido.
+-section -> El campo que se va a filtrar.
+-value -> El valor del campo que se quiere filtrar.
+-page -> Numero de la página en la que se encuentra.
+
+Detalles de los endpoints de cada acción:
+PAGINACIÓN:
+
+Mostrar todos los pares de Zapatillas  con paginación -> http://localhost:50/shoes-rest/api/shoes?page=numentero
+GET: Por default, el campo asignado en sortby es "id" y el orden asc.
+
+Mostrar todas las zapatillas -> http://localhost:50/shoes-rest/api/shoes
+
+/////FILTRAR/// 
+
+Mostrar una colección filtrada por alguno de sus campos -> http://localhost:50/shoes-rest/api/shoes?section=campo&value=valordelcampo
+
+ejemplo:  http://localhost:50/shoes-rest/api/shoes?section=talle&value=42
+
+
+///////ORDENAR //////
+
+Mostrar una colección que se pueda ordenar por cualquier campo -> http://localhost:50/shoes-rest/api/shoes?sortby=campo&order=asc-desc
+Ordenar una colección sin especificar el orden -> http://localhost:50/shoes-rest/api/shoes?sortby=campo
+Ordenar una colección sin especificar el campo -> http://localhost:50/shoes-rest/api/shoes?order=asc-desc
+
+
+//// HACER TODO JUNTO ////////// 
+Filtrar, ordenar y paginar combinados -> http://localhost:50/shoes-rest/api/shoes?section=campo&value=valordelcampo&sortby=campo&order=asc-desc&page=numentero
+
+
+Filtrar, por algun  campo y  ordenar sin poner el order (por defecto es ascendente) -> http://localhost:50/shoes-rest/api/shoes?section=campo&value=valordelcampo&sortby=campo
+
+
+Filtrar, elegir el orden y no poner el campo (por defecto es id) -> http://localhost:50/shoes-rest/api/shoes?section=campo&value=valordelcampo&order=asc-desc
+
+Obtener el token de autenticación -> http://localhost:50/shoes-rest/api/auth/token -> Aclaración: Al logearnos correctamente obtendremos el token el status code será "401 Unauthorized".
+
+Si cualquiera de estas solicitudes sale bien, el status code será "200 OK", de lo contrario será "400 Bad Request" (Salvo en la autenticación). GET (Búsqueda por ID):
+
+Mostrar una película con cierto id -> http://localhost:50/shoes-rest/api/shoes/:ID Si la solicitud sale bien, el status code será "200 OK", de lo contrario será "
+
+POST: Es necesario estar logeado para usar este método
+Crear una película nueva -> http://localhost:50/shoes-rest/api/shoes -> Aclaración:  Es necesario agregar: modelo, color, talle, precio,  id_marca . Si no se llenan todos los campos, el status code será "400 Bad Request", si el usuario no se encuentra logeado el status code será "401 Unauthorized". Si la solicitud sale bien, el status code sera "201 Created", de lo contrario, será "400 Bad Request".
+
+
+PUT: Es necesario estar logeado para usar este método:
+Editar una película -> http://localhost:50/shoes-rest/api/shoes/:ID -> Aclaración: Se puede editar cualquiera de los campos mencionados en el método PUT. No se puede dejar ninguno de esos campos vacíos, de lo contrario el status code será "400 Bad Request", si se intenta editar un par de zapatilla  en la que cuya id no exista, el status code será "404 Not found", y si el usuario no se encuentra logeado el status code será "401 Unauthorized". Si la solicitud sale bien, el status code sera "200 OK", de lo contrario, será "400 Bad Request".
+
+DELETE: Es necesario estar logeado para usar este método:
+Borrar una película -> http://localhost/TPE2-WEB2/api/films/:ID -> Aclaración: Si se intenta borrar un par de zapatila en la que cuya id no exista, el status code será "404 Not found". Si la solicitud sale bien, el status code sera "200 OK".
+
+
+ DATOS PARA HACER EL CRUD: 
+ EL usuario es el que se encuentra en la tabla user de la base de datos  
+ name : renzo
+ Password: 123456
+
+Las id de las marcas de zapatillas  al realizar los metodos  POST o PUT son: 
+id_marca = 1 -> Vans ,
+id_marca = 2 -> Nike ,
+id_marca = 3 -> Adidas ,
+id_marca = 4 -> Puma,
